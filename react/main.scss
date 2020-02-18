@@ -3,8 +3,14 @@
  * @author kudlav & anik97 (MIT License)
  */
 
-$body-color: red;
+@import "values";
 
 body {
-  color: $body-color;
+  color: $color-primary;
+
+  .widget {
+    padding: 0.8em;
+    margin: 1em;
+    background-color: $background-dark;
+  }
 }

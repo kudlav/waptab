@@ -1,4 +1,6 @@
 node_modules/
-www/main.css
-www/main.js
+www/*.css
+www/*.js
 package-lock.json
+.idea/
+waptab.iml

@@ -5,7 +5,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './app/app';
+import './main.scss'
 
 
 // Project page
-ReactDOM.render(<div />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
