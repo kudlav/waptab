@@ -1,4 +1,27 @@
-# Osobná domáca stránka
+# Personal homepage
+
+## Installation
+Project requires [npm](https://github.com/npm/cli/). Tested with npm@6.13.
+
+### Development
+
+Install devDependencies and start building service for development.
+
+```sh
+$ npm install
+$ npm run dev-build
+```
+
+### Production
+
+Install the devDependencies and build project.
+
+```sh
+$ npm install
+$ npm run build
+```
+
+## O projektu (sk)
 Cieľom pojektu je vytvoriť osobnú domácu stránku za použitia ľubovolných webových technológií.
 Stránka bude pozostávať z upravovateľných widgetov ktoré budú uživateľovi prezentovať relevantné informácie (RSS feed, počasie, ...).
 
