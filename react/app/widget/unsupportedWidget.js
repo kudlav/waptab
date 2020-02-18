@@ -1,11 +1,11 @@
 /**
- * @file App component
+ * @file Fallback widget component
  * @author kudlav & anik97 (MIT License)
  */
 
 import React, { Component } from 'react';
 
-export default class RssWidget extends Component {
+export default class UnsupportedWidget extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { hasError: false };

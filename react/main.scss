@@ -6,11 +6,29 @@
 @import "values";
 
 body {
-  color: $color-primary;
+  color: $color-text;
+  background-color: #b5a584;
 
   .widget {
-    padding: 0.8em;
-    margin: 1em;
-    background-color: $background-dark;
+    background-color: $background-light;
+
+    .header {
+      padding: 0.8em;
+      background-color: $background-dark;
+      font-weight: bold;
+      display: flex;
+
+      .title {
+        flex-grow: 1;
+      }
+
+      i {
+        color: $color-primary;
+        cursor: pointer;
+      }
+    }
+    .body {
+      padding: 0.8em;
+    }
   }
 }
