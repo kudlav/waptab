@@ -23,19 +23,22 @@ export default class Settings extends Component {
 			<Popup trigger={<i className="material-icons" title={"Nastavení"}>settings</i>} modal={true}>
 				{close => (
 					<div className={"popup"}>
-						<i className="material-icons" title={"Zavřít"} onClick={close}>close</i><br/>
-						<label>Počet sloupců</label>
-						<input
-							type={"number"}
-							defaultValue={this.props.cols}
-							onChange={this.handleColsChange}
-							min={1}
-						/><br/>
-						<input
-							type={"button"}
-							value={"Uložit"}
-							onClick={() => this.props.changeCols(this.state.cols)}
-						/><br/>
+						<div className={"title"}>
+							<i className="material-icons" title={"Zavřít"} onClick={close}>close</i> Nastavení
+						</div>
+						<form onSubmit={() => this.props.changeCols(this.state.cols)}>
+							<label htmlFor={"search"}>Počet sloupců</label>
+							<input
+								type={"number"}
+								id={"search"}
+								defaultValue={this.props.cols}
+								onChange={this.handleColsChange}
+								min={1}
+							/><br/>
+							<label htmlFor={"search"}>Vyhledávač</label>
+							<select/><br/>
+							<input type={"submit"} value={"Uložit"}/>
+						</form><br/>
 						<button>Export nastavení</button>
 						<button>Import nastavení</button>
 					</div>

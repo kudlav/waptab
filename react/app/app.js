@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import WidgetContainer from './widget/widgetContainer';
 import Settings from "./settings/settings";
+import Search from './search/search';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -24,6 +25,13 @@ export default class App extends Component {
 		else {
 			this.state = {
 				cols: 2,
+				engines: {
+					'Google': 'https://www.google.com/search?q=',
+					'DuckDuckGo': 'https://duckduckgo.com/?q=',
+					'Seznam': 'https://search.seznam.cz/?q=',
+					'Mapy.cz': 'https://mapy.cz/?q='
+				},
+				engine: 'DuckDuckGo',
 				widgets: {
 					'rss0': {
 						type: 'rss',
@@ -62,8 +70,11 @@ export default class App extends Component {
 		return (
 			<>
 				<button onClick={this.resetState}>RESET</button>
-
-				<Settings cols={this.state.cols} changeCols={this.changeCols} />
+				<div className={"head"}>
+					<div />
+					<Search engines={this.state.engines} engine={this.state.engine} />
+					<Settings cols={this.state.cols} changeCols={this.changeCols} />
+				</div>
 
 				<ResponsiveGridLayout
 					className="layout"
@@ -122,7 +133,6 @@ export default class App extends Component {
 
 	resetState() {
 		window.localStorage.clear();
-		alert("ok");
 		location.reload();
 	}
 
