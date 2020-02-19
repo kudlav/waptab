@@ -4,8 +4,9 @@
  */
 
 import React, { Component } from 'react';
-import WidgetContainer from './widget/widgetContainer';
 import { Responsive, WidthProvider } from 'react-grid-layout';
+import WidgetContainer from './widget/widgetContainer';
+import Settings from "./settings/settings";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -15,6 +16,7 @@ export default class App extends Component {
 
 		this.removeWidget = this.removeWidget.bind(this);
 		this.moveWidget = this.moveWidget.bind(this);
+		this.changeCols = this.changeCols.bind(this);
 
 		if (typeof window.localStorage.getItem('state') === 'string') {
 			this.state = JSON.parse(window.localStorage.getItem('state'));
@@ -60,6 +62,9 @@ export default class App extends Component {
 		return (
 			<>
 				<button onClick={this.resetState}>RESET</button>
+
+				<Settings cols={this.state.cols} changeCols={this.changeCols} />
+
 				<ResponsiveGridLayout
 					className="layout"
 					breakpoints={{all: 0}}
@@ -85,7 +90,7 @@ export default class App extends Component {
 	}
 
 	moveWidget(layout) {
-		this.setState((state) => {
+		this.setState(state => {
 			const newWidgets = Object.assign({}, state.widgets);
 			Object.values(layout).forEach(item => {
 				newWidgets[item.i].column = item.x;
@@ -100,7 +105,7 @@ export default class App extends Component {
 	 * @param id int
 	 */
 	removeWidget(id) {
-		this.setState((state) => {
+		this.setState(state => {
 			const newWidgets = Object.assign({}, state.widgets);
 			const column = newWidgets[id].column;
 			const row = newWidgets[id].row;
@@ -118,6 +123,18 @@ export default class App extends Component {
 	resetState() {
 		window.localStorage.clear();
 		alert("ok");
+		location.reload();
+	}
+
+	/**
+	 *
+	 * @param number int
+	 */
+	changeCols(number) {
+		// todo workaround, see https://github.com/STRML/react-grid-layout/issues/1122
+		const newState = Object.assign({}, this.state);
+		newState.cols = number;
+		window.localStorage.setItem("state", JSON.stringify(newState));
 		location.reload();
 	}
 }
