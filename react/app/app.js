@@ -14,34 +14,44 @@ export default class App extends Component {
 		super(props);
 
 		this.removeWidget = this.removeWidget.bind(this);
+		this.moveWidget = this.moveWidget.bind(this);
 
 		if (typeof window.localStorage.getItem('state') === 'string') {
 			this.state = JSON.parse(window.localStorage.getItem('state'));
 		}
 		else {
 			this.state = {
-				cols: 1,
-				widgets: [{
-					type: 'rss',
-					column: 0,
-					title: 'RSS - odkaz.na.zdroj.dat',
-					data: {}
-				}, {
-					type: 'rss',
-					column: 0,
-					title: 'RSS - www.paralelnilisty.cz',
-					data: {}
-				}, {
-					type: 'forecast',
-					column: 0,
-					title: 'Počasí - Brno',
-					data: {}
-				}, {
-					type: 'fzz',
-					column: 0,
-					title: 'Horoskop - Lev',
-					data: {}
-				}]
+				cols: 2,
+				widgets: {
+					'rss0': {
+						type: 'rss',
+						column: 0,
+						row: 0,
+						title: 'RSS - odkaz.na.zdroj.dat',
+						data: {}
+					},
+					'rss1': {
+						type: 'rss',
+						column: 0,
+						row: 1,
+						title: 'RSS - www.paralelnilisty.cz',
+						data: {}
+					},
+					'forecast0': {
+						type: 'forecast',
+						column: 0,
+						row: 2,
+						title: 'Počasí - Brno',
+						data: {}
+					},
+					'fzz0': {
+						type: 'fzz',
+						column: 0,
+						row: 3,
+						title: 'Horoskop - Lev',
+						data: {}
+					}
+				}
 			};
 		}
 	}
@@ -55,40 +65,59 @@ export default class App extends Component {
 					breakpoints={{all: 0}}
 					cols={{all: this.state.cols}}
 					isResizable={false}
-					onLayoutChange={this.onLayoutChange}
+					onLayoutChange={this.moveWidget}
 				>
-					{this.state.widgets.map((widget, index) =>
-						<div key={index} data-grid={{x: widget.column, y: index, w: 1, h: 1}}>
-							<WidgetContainer
-								widget={widget}
-								id={index}
-								onRemove={this.removeWidget}
-							/>
-						</div>
-					)}
+					{Object.keys(this.state.widgets).map((id) => {
+						const widget = this.state.widgets[id];
+						return (
+							<div key={id} data-grid={{x: widget.column, y: widget.row, w: 1, h: 1}}>
+								<WidgetContainer id={id} widget={widget} onRemove={this.removeWidget} />
+							</div>
+						);
+					})}
 				</ResponsiveGridLayout>
 			</>
 		);
-	}
-
-	onLayoutChange(layout) {
-		console.log(layout);
-	}
-
-	removeWidget(id) {
-		this.setState((state) => {
-			state.widgets.splice(id, 1);
-			return {widgets: state.widgets.slice()};
-		})
 	}
 
 	componentDidUpdate() {
 		window.localStorage.setItem("state", JSON.stringify(this.state));
 	}
 
+	moveWidget(layout) {
+		this.setState((state) => {
+			const newWidgets = Object.assign({}, state.widgets);
+			Object.values(layout).forEach(item => {
+				newWidgets[item.i].column = item.x;
+				newWidgets[item.i].row = item.y;
+			});
+			return { widgets: newWidgets };
+		});
+	}
+
+	/**
+	 * Remove widget
+	 * @param id int
+	 */
+	removeWidget(id) {
+		this.setState((state) => {
+			const newWidgets = Object.assign({}, state.widgets);
+			const column = newWidgets[id].column;
+			const row = newWidgets[id].row;
+			delete newWidgets[id]; // remove widget
+			// decrease row of below widgets
+			Object.values(newWidgets).forEach(widget => {
+				if (widget.column === column && widget.row > row) {
+					widget.row -= 1;
+				}
+			});
+			return { widgets: newWidgets };
+		});
+	}
+
 	resetState() {
-		alert("ok");
 		window.localStorage.clear();
+		alert("ok");
 		location.reload();
 	}
 }

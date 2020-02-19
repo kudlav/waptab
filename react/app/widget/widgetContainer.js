@@ -27,4 +27,11 @@ export default class WidgetContainer extends Component {
 			</div>
 		);
 	}
+
+	shouldComponentUpdate(nextProps) {
+		return (this.props.widget.title !== nextProps.widget.title ||
+			this.props.widget.data !== nextProps.widget.data ||
+			this.props.widget.type !== nextProps.widget.type
+		);
+	}
 }

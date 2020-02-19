@@ -28,4 +28,8 @@ export default class UnsupportedWidget extends Component {
 
 		return this.props.children;
 	}
+
+	shouldComponentUpdate() {
+		return false;
+	}
 }
