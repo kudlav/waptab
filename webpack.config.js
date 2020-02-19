@@ -17,8 +17,19 @@ module.exports = {
 				}
 			},
 			{
-				test:/\.(css|scss)$/,
+				test:/\.(scss)$/,
 				use:['style-loader', 'css-loader', 'sass-loader']
+			},
+			{
+				test: /\.(css|eot|ttf|woff|woff2)$/i,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[path][name].[ext]',
+						},
+					},
+				],
 			}
 		]
 	}
