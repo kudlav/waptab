@@ -34,6 +34,7 @@ export default class Settings extends Component {
 								defaultValue={this.props.cols}
 								onChange={this.handleColsChange}
 								min={1}
+								max={10}
 							/><br/>
 							<label htmlFor={"search"}>Vyhledávač</label>
 							<select/><br/>
@@ -48,12 +49,14 @@ export default class Settings extends Component {
 	}
 
 	handleColsChange(event) {
-		const value = Number.parseInt(event.target.value);
-		if (Number.isNaN(value) || value < 0) {
-			event.target.value = this.state.cols;
-		}
-		else {
-			this.setState({cols: value});
+		if (event.target.value !== '') {
+			const value = Number.parseInt(event.target.value);
+			if (Number.isNaN(value) || value < 0) {
+				event.target.value = this.state.cols;
+			}
+			else {
+				this.setState({cols: value});
+			}
 		}
 	}
 }
