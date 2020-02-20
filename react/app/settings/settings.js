@@ -12,10 +12,12 @@ export default class Settings extends Component {
 		super(props);
 
 		this.state = {
-			cols: this.props.cols
+			cols: this.props.cols,
+			engine: this.props.engine
 		};
 
 		this.handleColsChange = this.handleColsChange.bind(this);
+		this.handleEngineChange = this.handleEngineChange.bind(this);
 	}
 
 	render() {
@@ -26,7 +28,7 @@ export default class Settings extends Component {
 						<div className={"title"}>
 							<i className="material-icons" title={"Zavřít"} onClick={close}>close</i> Nastavení
 						</div>
-						<form onSubmit={() => this.props.changeCols(this.state.cols)}>
+						<form onSubmit={() => this.props.changeSettings(this.state)}>
 							<label htmlFor={"search"}>Počet sloupců</label>
 							<input
 								type={"number"}
@@ -35,11 +37,18 @@ export default class Settings extends Component {
 								onChange={this.handleColsChange}
 								min={1}
 								max={10}
-							/><br/>
+							/>
+							<br/>
 							<label htmlFor={"search"}>Vyhledávač</label>
-							<select/><br/>
+							<select value={this.state.engine} onChange={this.handleEngineChange}>
+								{Object.keys(this.props.engines).map(engine =>
+									<option value={engine}>{engine}</option>
+								)}
+							</select>
+							<br/>
 							<input type={"submit"} value={"Uložit"}/>
-						</form><br/>
+						</form>
+						<br/>
 						<button>Export nastavení</button>
 						<button>Import nastavení</button>
 					</div>
@@ -57,6 +66,12 @@ export default class Settings extends Component {
 			else {
 				this.setState({cols: value});
 			}
+		}
+	}
+
+	handleEngineChange(event) {
+		if (typeof this.props.engines[event.target.value] === 'string') {
+			this.setState({ engine: event.target.value });
 		}
 	}
 }

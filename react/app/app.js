@@ -17,7 +17,7 @@ export default class App extends Component {
 
 		this.removeWidget = this.removeWidget.bind(this);
 		this.moveWidget = this.moveWidget.bind(this);
-		this.changeCols = this.changeCols.bind(this);
+		this.changeSettings = this.changeSettings.bind(this);
 
 		if (typeof window.localStorage.getItem('state') === 'string') {
 			this.state = JSON.parse(window.localStorage.getItem('state'));
@@ -73,7 +73,12 @@ export default class App extends Component {
 				<div className={"head"}>
 					<div />
 					<Search engines={this.state.engines} engine={this.state.engine} />
-					<Settings cols={this.state.cols} changeCols={this.changeCols} />
+					<Settings
+						engines={this.state.engines}
+						engine={this.state.engine}
+						cols={this.state.cols}
+						changeSettings={this.changeSettings}
+					/>
 				</div>
 
 				<ResponsiveGridLayout
@@ -137,13 +142,14 @@ export default class App extends Component {
 	}
 
 	/**
-	 *
-	 * @param number int
+	 * Change number of columns and search engine
+	 * @param values Object
 	 */
-	changeCols(number) {
+	changeSettings(values) {
 		// todo workaround, see https://github.com/STRML/react-grid-layout/issues/1122
 		const newState = Object.assign({}, this.state);
-		newState.cols = number;
+		newState.cols = values.cols;
+		newState.engine = values.engine;
 		window.localStorage.setItem("state", JSON.stringify(newState));
 		location.reload();
 	}
