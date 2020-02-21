@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react'
 import Popup from "reactjs-popup";
+import validate from '../validator';
 
 export default class Settings extends Component {
 
@@ -18,6 +19,7 @@ export default class Settings extends Component {
 
 		this.handleColsChange = this.handleColsChange.bind(this);
 		this.handleEngineChange = this.handleEngineChange.bind(this);
+		this.handleImport = this.handleImport.bind(this);
 	}
 
 	render() {
@@ -42,15 +44,16 @@ export default class Settings extends Component {
 							<label htmlFor={"search"}>Vyhledávač</label>
 							<select value={this.state.engine} onChange={this.handleEngineChange}>
 								{Object.keys(this.props.engines).map(engine =>
-									<option value={engine}>{engine}</option>
+									<option key={engine} value={engine}>{engine}</option>
 								)}
 							</select>
 							<br/>
 							<input type={"submit"} value={"Uložit"}/>
 						</form>
 						<br/>
-						<button>Export nastavení</button>
-						<button>Import nastavení</button>
+						<button onClick={this.props.exportState}>Export nastavení</button>
+						<label htmlFor={"import"} className={"button"}>Import nastavení</label>
+						<input type={"file"} onChange={this.handleImport} id={"import"} />
 					</div>
 				)}
 			</Popup>
@@ -73,5 +76,35 @@ export default class Settings extends Component {
 		if (typeof this.props.engines[event.target.value] === 'string') {
 			this.setState({ engine: event.target.value });
 		}
+	}
+
+	handleImport(event) {
+		const file = event.target.files[0];
+		if (!file) return;
+
+		const reader = new FileReader();
+		reader.onload = e => {
+			this.importSettings(e.target.result)
+		};
+		reader.readAsText(file);
+	}
+
+	importSettings(string) {
+		let settings;
+		try {
+			settings = JSON.parse(string);
+		} catch (_) {
+			return alert('Nahraný soubor musí být formátu JSON!');
+		}
+
+		const error = validate(settings);
+		if (typeof error === 'string') {
+			return alert(`Neplatný formát souboru!\n\n${error}`);
+		}
+
+		// todo workaround, see https://github.com/STRML/react-grid-layout/issues/1122
+		window.localStorage.setItem("state", JSON.stringify(settings));
+		alert('Import proběhl úspěsně.');
+		location.reload();
 	}
 }

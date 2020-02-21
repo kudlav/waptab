@@ -8,6 +8,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import WidgetContainer from './widget/widgetContainer';
 import Settings from "./settings/settings";
 import Search from './search/search';
+import defaultState from './defaultState'
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -18,51 +19,13 @@ export default class App extends Component {
 		this.removeWidget = this.removeWidget.bind(this);
 		this.moveWidget = this.moveWidget.bind(this);
 		this.changeSettings = this.changeSettings.bind(this);
+		this.exportState = this.exportState.bind(this);
 
 		if (typeof window.localStorage.getItem('state') === 'string') {
 			this.state = JSON.parse(window.localStorage.getItem('state'));
 		}
 		else {
-			this.state = {
-				cols: 2,
-				engines: {
-					'Google': 'https://www.google.com/search?q=',
-					'DuckDuckGo': 'https://duckduckgo.com/?q=',
-					'Seznam': 'https://search.seznam.cz/?q=',
-					'Mapy.cz': 'https://mapy.cz/?q='
-				},
-				engine: 'DuckDuckGo',
-				widgets: {
-					'rss0': {
-						type: 'rss',
-						column: 0,
-						row: 0,
-						title: 'RSS - odkaz.na.zdroj.dat',
-						data: {}
-					},
-					'rss1': {
-						type: 'rss',
-						column: 0,
-						row: 1,
-						title: 'RSS - www.paralelnilisty.cz',
-						data: {}
-					},
-					'forecast0': {
-						type: 'forecast',
-						column: 0,
-						row: 2,
-						title: 'Počasí - Brno',
-						data: {}
-					},
-					'fzz0': {
-						type: 'fzz',
-						column: 0,
-						row: 3,
-						title: 'Horoskop - Lev',
-						data: {}
-					}
-				}
-			};
+			this.state = defaultState;
 		}
 	}
 
@@ -78,6 +41,7 @@ export default class App extends Component {
 						engine={this.state.engine}
 						cols={this.state.cols}
 						changeSettings={this.changeSettings}
+						exportState={this.exportState}
 					/>
 				</div>
 
@@ -152,5 +116,15 @@ export default class App extends Component {
 		newState.engine = values.engine;
 		window.localStorage.setItem("state", JSON.stringify(newState));
 		location.reload();
+	}
+
+	exportState() {
+		const element = document.createElement('a');
+		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.state)));
+		element.setAttribute('download', 'config.json');
+		element.style.display = 'none';
+		document.body.appendChild(element);
+		element.click();
+		document.body.removeChild(element);
 	}
 }
