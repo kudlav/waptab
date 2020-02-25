@@ -20,6 +20,7 @@ export default class Settings extends Component {
 		this.handleColsChange = this.handleColsChange.bind(this);
 		this.handleEngineChange = this.handleEngineChange.bind(this);
 		this.handleImport = this.handleImport.bind(this);
+		this.handleSubmitSettings = this.handleSubmitSettings.bind(this);
 	}
 
 	render() {
@@ -30,7 +31,7 @@ export default class Settings extends Component {
 						<div className={"title"}>
 							<i className="material-icons" title={"Zavřít"} onClick={close}>close</i> Nastavení
 						</div>
-						<form onSubmit={() => this.props.changeSettings(this.state)}>
+						<form onSubmit={this.handleSubmitSettings}>
 							<label htmlFor={"search"}>Počet sloupců</label>
 							<input
 								type={"number"}
@@ -42,7 +43,7 @@ export default class Settings extends Component {
 							/>
 							<br/>
 							<label htmlFor={"search"}>Vyhledávač</label>
-							<select value={this.state.engine} onChange={this.handleEngineChange}>
+							<select defaultValue={this.props.engine} onChange={this.handleEngineChange}>
 								{Object.keys(this.props.engines).map(engine =>
 									<option key={engine} value={engine}>{engine}</option>
 								)}
@@ -89,6 +90,11 @@ export default class Settings extends Component {
 		reader.readAsText(file);
 	}
 
+	handleSubmitSettings(event) {
+		event.preventDefault();
+		this.props.changeSettings(this.state);
+	}
+
 	importSettings(string) {
 		let settings;
 		try {
@@ -102,9 +108,7 @@ export default class Settings extends Component {
 			return alert(`Neplatný formát souboru!\n\n${error}`);
 		}
 
-		// todo workaround, see https://github.com/STRML/react-grid-layout/issues/1122
-		window.localStorage.setItem("state", JSON.stringify(settings));
 		alert('Import proběhl úspěsně.');
-		location.reload();
+		this.props.changeSettings(settings);
 	}
 }

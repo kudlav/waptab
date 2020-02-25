@@ -106,16 +106,11 @@ export default class App extends Component {
 	}
 
 	/**
-	 * Change number of columns and search engine
+	 * Change state of app
 	 * @param values Object
 	 */
 	changeSettings(values) {
-		// todo workaround, see https://github.com/STRML/react-grid-layout/issues/1122
-		const newState = Object.assign({}, this.state);
-		newState.cols = values.cols;
-		newState.engine = values.engine;
-		window.localStorage.setItem("state", JSON.stringify(newState));
-		location.reload();
+		this.setState(values);
 	}
 
 	exportState() {

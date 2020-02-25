@@ -31,7 +31,7 @@
     "node-sass": "^4.13.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-grid-layout": "^0.17.1",
+    "react-grid-layout": "github:kudlav/react-grid-layout",
     "reactjs-popup": "^1.5.0",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
