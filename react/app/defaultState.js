@@ -12,6 +12,7 @@ export default {
 		'Mapy.cz': 'https://mapy.cz/?q='
 	},
 	engine: 'DuckDuckGo',
+	bgColor: '#b5a584',
 	widgets: {
 		'rss0': {
 			type: 'rss',

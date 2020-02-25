@@ -21,5 +21,8 @@ export default function(json) {
 	if (typeof json.engine !== 'string' || typeof json.engines[json.engine] !== 'string')
 		return 'engine: musí být jeden z engines';
 
+	if (typeof json.bgColor !== 'string')
+		return 'bgColor: musí být uvedena barva pozadí stránky';
+
 	return null;
 }

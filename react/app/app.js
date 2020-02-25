@@ -40,6 +40,7 @@ export default class App extends Component {
 						engines={this.state.engines}
 						engine={this.state.engine}
 						cols={this.state.cols}
+						bgColor={this.state.bgColor}
 						changeSettings={this.changeSettings}
 						exportState={this.exportState}
 					/>
@@ -67,6 +68,11 @@ export default class App extends Component {
 
 	componentDidUpdate() {
 		window.localStorage.setItem("state", JSON.stringify(this.state));
+		document.body.style.background = this.state.bgColor;
+	}
+
+	componentDidMount() {
+		document.body.style.background = this.state.bgColor;
 	}
 
 	moveWidget(layout) {

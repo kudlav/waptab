@@ -14,11 +14,13 @@ export default class Settings extends Component {
 
 		this.state = {
 			cols: this.props.cols,
-			engine: this.props.engine
+			engine: this.props.engine,
+			bgColor: this.props.bgColor
 		};
 
 		this.handleColsChange = this.handleColsChange.bind(this);
 		this.handleEngineChange = this.handleEngineChange.bind(this);
+		this.handleBgColorChange = this.handleBgColorChange.bind(this);
 		this.handleImport = this.handleImport.bind(this);
 		this.handleSubmitSettings = this.handleSubmitSettings.bind(this);
 	}
@@ -49,6 +51,14 @@ export default class Settings extends Component {
 								)}
 							</select>
 							<br/>
+							<label htmlFor={'bgColor'}>Pozadí stránky</label>
+							<input
+								type={'color'}
+								id={'bgColor'}
+								defaultValue={this.props.bgColor}
+								onChange={this.handleBgColorChange}
+							/>
+							<br/>
 							<input type={"submit"} value={"Uložit"}/>
 						</form>
 						<br/>
@@ -77,6 +87,10 @@ export default class Settings extends Component {
 		if (typeof this.props.engines[event.target.value] === 'string') {
 			this.setState({ engine: event.target.value });
 		}
+	}
+
+	handleBgColorChange(event) {
+		this.setState({ bgColor: event.target.value });
 	}
 
 	handleImport(event) {
