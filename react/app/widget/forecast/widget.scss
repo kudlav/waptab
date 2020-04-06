@@ -6,5 +6,66 @@
 @import "../../../values.scss";
 
 .forecastWidget {
-  font-style: italic;
+  margin: 5px;
+  overflow: hidden;
+  text-align:center;
 }
+
+.container {
+  margin: auto;
+  display:inline-block;
+}
+
+.weatherColumn{
+    width: 100px;
+    min-height: 250px;
+    padding: 2px 10px;
+    margin-top: 1px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: #313131;
+    display:inline-block;  
+}
+
+.columnHeader{
+  width: auto;
+  padding: 0;
+  border-bottom: 6px solid #464646;
+  text-align:center;
+}
+
+.weatherColumn h2{
+  margin: 0;
+}
+
+
+
+.weatherColumn img{
+  max-width: 100px;
+  max-height: 100px;
+}
+/*
+.left{
+  padding: 0 0;
+  float:left; 
+}
+
+.left span{
+  vertical-align: middle;
+}
+
+.temp{
+  width: 25%;
+}
+
+.desc{
+  width: 25%;
+}
+
+.right{
+  overflow: hidden;
+  align-items: center;
+  height: 50px;
+  border-left: 6px solid #464646;
+}
+*/
