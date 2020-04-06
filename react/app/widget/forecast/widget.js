@@ -40,31 +40,29 @@ export default class ForecastWidget extends Component {
 		{
 			return (
 				<div className={"forecastWidget"}>
-					<div className={"container"}>
-						<div className={"weatherColumn"}>
-							<div className={"columnHeader"}>Dnes</div><br/>
-							<h2>{this.state.items[0].temp} °C</h2> <br/>
-							<span>{this.state.items[0].weather}</span><br/>
-							<img src={this.state.items[0].icon} />
-						</div>
-						<div className={"weatherColumn"}>
-							<div className={"columnHeader"}>Zítra</div><br/>
-							<h2>{this.state.items[1].temp} °C</h2> <br/>
-							<span>{this.state.items[1].weather}</span><br/>
-							<img src={this.state.items[1].icon} />
-						</div>
-						<div className={"weatherColumn"}>
-						<div className={"columnHeader"}>{this.getFutureDate(2)}</div><br/>
-							<h2>{this.state.items[2].temp} °C</h2> <br/>
-							<span>{this.state.items[2].weather}</span><br/>
-							<img src={this.state.items[2].icon} />
-						</div>
-						<div className={"weatherColumn"}>
-						<div className={"columnHeader"}>{this.getFutureDate(3)}</div><br/>
-							<h2>{this.state.items[3].temp} °C</h2> <br/>
-							<span>{this.state.items[3].weather}</span><br/>
-							<img src={this.state.items[3].icon} />
-						</div>
+					<div className={"weatherColumn"}>
+						<div className={"columnHeader"}>Dnes</div><br/>
+						<h2>{this.state.items[0].temp} °C</h2> <br/>
+						<span>{this.state.items[0].weather}</span><br/>
+						<img src={this.state.items[0].icon} />
+					</div>
+					<div className={"weatherColumn"}>
+						<div className={"columnHeader"}>Zítra</div><br/>
+						<h2>{this.state.items[1].temp} °C</h2> <br/>
+						<span>{this.state.items[1].weather}</span><br/>
+						<img src={this.state.items[1].icon} />
+					</div>
+					<div className={"weatherColumn"}>
+					<div className={"columnHeader"}>{this.getFutureDate(2)}</div><br/>
+						<h2>{this.state.items[2].temp} °C</h2> <br/>
+						<span>{this.state.items[2].weather}</span><br/>
+						<img src={this.state.items[2].icon} />
+					</div>
+					<div className={"weatherColumn"}>
+					<div className={"columnHeader"}>{this.getFutureDate(3)}</div><br/>
+						<h2>{this.state.items[3].temp} °C</h2> <br/>
+						<span>{this.state.items[3].weather}</span><br/>
+						<img src={this.state.items[3].icon} />
 					</div>
 				</div>
 			);

@@ -9,11 +9,9 @@
   margin: 5px;
   overflow: hidden;
   text-align:center;
-}
-
-.container {
-  margin: auto;
-  display:inline-block;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .weatherColumn{
