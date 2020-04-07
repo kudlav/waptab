@@ -44,9 +44,9 @@ export default class RssWidget extends Component {
 		else
 		{
 			return (
-				<p>
+				<div>
 					Načítání...
-				</p>
+				</div>
 			);
 		}
 	}

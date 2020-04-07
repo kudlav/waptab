@@ -25,8 +25,11 @@ body {
   }
 
   .widget {
-    background-color: $background-light;
     margin: 10px;
+  }
+
+  .widget, .popup {
+    background-color: $background-light;
 
     .header {
       padding: 0.8em;
@@ -49,21 +52,19 @@ body {
   }
 
   .popup-content {
-    color: $color-dark;
     background-color: rgba(255, 255, 255, 0.9)!important;
+    border: 5px solid rgba(59, 59, 59, 0.9)!important;
+    padding: 0!important;
+
+    form label {
+      padding: 0 0.4em 0.8em 0;
+      display: inline-block;
+    }
 
     button, input[type=submit], .button {
       margin-right: 0.4em;
     }
 
-    .popup .title {
-      margin-bottom: 1em;
-
-      i {
-        vertical-align: text-bottom;
-        cursor: pointer;
-      }
-    }
   }
 
   .head{

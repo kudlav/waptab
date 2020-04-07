@@ -30,41 +30,43 @@ export default class Settings extends Component {
 			<Popup trigger={<i className="material-icons" title={"Nastavení"}>settings</i>} modal={true}>
 				{close => (
 					<div className={"popup"}>
-						<div className={"title"}>
-							<i className="material-icons" title={"Zavřít"} onClick={close}>close</i> Nastavení
+						<div className={"header"}>
+							<div className={"title"}>Nastavení</div><i className="material-icons" title={"Zavřít"} onClick={close}>close</i>
 						</div>
-						<form onSubmit={this.handleSubmitSettings}>
-							<label htmlFor={"search"}>Počet sloupců</label>
-							<input
-								type={"number"}
-								id={"search"}
-								defaultValue={this.props.cols}
-								onChange={this.handleColsChange}
-								min={1}
-								max={10}
-							/>
+						<div className={"body"}>
+							<form onSubmit={(event) => this.handleSubmitSettings(event, close)}>
+								<label htmlFor={"search"}>Počet sloupců</label>
+								<input
+									type={"number"}
+									id={"search"}
+									defaultValue={this.props.cols}
+									onChange={this.handleColsChange}
+									min={1}
+									max={10}
+								/>
+								<br/>
+								<label htmlFor={"search"}>Vyhledávač</label>
+								<select defaultValue={this.props.engine} onChange={this.handleEngineChange}>
+									{Object.keys(this.props.engines).map(engine =>
+										<option key={engine} value={engine}>{engine}</option>
+									)}
+								</select>
+								<br/>
+								<label htmlFor={'bgColor'}>Pozadí stránky</label>
+								<input
+									type={'color'}
+									id={'bgColor'}
+									defaultValue={this.props.bgColor}
+									onChange={this.handleBgColorChange}
+								/>
+								<br/>
+								<input type={"submit"} value={"Uložit"}/>
+							</form>
 							<br/>
-							<label htmlFor={"search"}>Vyhledávač</label>
-							<select defaultValue={this.props.engine} onChange={this.handleEngineChange}>
-								{Object.keys(this.props.engines).map(engine =>
-									<option key={engine} value={engine}>{engine}</option>
-								)}
-							</select>
-							<br/>
-							<label htmlFor={'bgColor'}>Pozadí stránky</label>
-							<input
-								type={'color'}
-								id={'bgColor'}
-								defaultValue={this.props.bgColor}
-								onChange={this.handleBgColorChange}
-							/>
-							<br/>
-							<input type={"submit"} value={"Uložit"}/>
-						</form>
-						<br/>
-						<button onClick={this.props.exportState}>Export nastavení</button>
-						<label htmlFor={"import"} className={"button"}>Import nastavení</label>
-						<input type={"file"} onChange={this.handleImport} id={"import"} />
+							<button onClick={this.props.exportState}>Export nastavení</button>
+							<label htmlFor={"import"} className={"button"}>Import nastavení</label>
+							<input type={"file"} onChange={this.handleImport} id={"import"} />
+						</div>
 					</div>
 				)}
 			</Popup>
@@ -104,9 +106,10 @@ export default class Settings extends Component {
 		reader.readAsText(file);
 	}
 
-	handleSubmitSettings(event) {
+	handleSubmitSettings(event, close) {
 		event.preventDefault();
 		this.props.changeSettings(this.state);
+		close();
 	}
 
 	importSettings(string) {
