@@ -24,12 +24,45 @@ body {
     display: none;
   }
 
+  .react-grid-layout {
+    overflow-x: hidden;
+  }
+
+  .add-widget {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+
+    i {
+      color: $color-primary;
+      cursor: pointer;
+    }
+
+    >i {
+      font-size: 70px;
+    }
+
+    .widget {
+      padding: 0.2em;
+
+      i {
+        vertical-align: bottom;
+      }
+    }
+
+    .button {
+      display: block;
+      margin-top: 0.2em;
+    }
+  }
+
   .widget {
     margin: 10px;
   }
 
   .widget, .popup {
     background-color: $background-light;
+    height: max-content;
 
     .header {
       padding: 0.8em;

@@ -9,6 +9,8 @@ import WidgetContainer from './widget/widgetContainer';
 import Settings from "./settings/settings";
 import Search from './search/search';
 import defaultState from './defaultState'
+import enabledWidgets from './enabledWidgets';
+import AddWidget from './widget/addWidget';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -34,17 +36,7 @@ export default class App extends Component {
 
 	render () {
 
-		const layout = Object.keys(this.state.widgets).map(id => {
-			const height = this.state.heights.hasOwnProperty(id) ? this.state.heights[id] : 100;
-			const widget = this.state.widgets[id];
-			return {
-				i: id,
-				x: widget.column,
-				y: widget.row,
-				w: 1,
-				h: height
-			}
-		});
+		const layout = this.getLayout();
 
 		return (
 			<>
@@ -85,6 +77,13 @@ export default class App extends Component {
 							</div>
 						);
 					})}
+
+					{[...Array(this.state.cols)].map((_, col) =>
+						<div key={`_add${col}`} id={`_add${col}`}>
+							<AddWidget column={col} widgets={enabledWidgets} />
+						</div>
+					)}
+
 				</ResponsiveGridLayout>
 			</>
 		);
@@ -100,14 +99,17 @@ export default class App extends Component {
 	}
 
 	moveWidget(layout) {
-		this.setState(state => {
-			const newWidgets = Object.assign({}, state.widgets);
-			Object.values(layout).forEach(item => {
+		const newWidgets = Object.assign({}, this.state.widgets);
+		Object.values(layout).forEach(item => {
+			if (item.i !== `_add${item.x}`) {
 				newWidgets[item.i].column = item.x;
 				newWidgets[item.i].row = item.y;
-			});
-			return { widgets: newWidgets };
+			}
+			else {
+				item.y = Infinity;
+			}
 		});
+		this.setState({ widgets: newWidgets });
 	}
 
 	updateHeight(id, height) {
@@ -159,5 +161,30 @@ export default class App extends Component {
 		document.body.appendChild(element);
 		element.click();
 		document.body.removeChild(element);
+	}
+
+	getLayout() {
+		const layout = Object.keys(this.state.widgets).map(id => {
+			const height = this.state.heights.hasOwnProperty(id) ? this.state.heights[id] : 115;
+			const widget = this.state.widgets[id];
+			return {
+				i: id,
+				x: widget.column,
+				y: widget.row,
+				w: 1,
+				h: height
+			}
+		});
+		for (let col = 0; col < this.state.cols; col++) {
+			layout.push({
+				i: `_add${col}`,
+				x: col,
+				y: Infinity,
+				w: 1,
+				h: 100,
+				isDraggable: false,
+			});
+		}
+		return layout;
 	}
 }
