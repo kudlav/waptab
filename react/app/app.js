@@ -20,6 +20,7 @@ export default class App extends Component {
 		this.moveWidget = this.moveWidget.bind(this);
 		this.changeSettings = this.changeSettings.bind(this);
 		this.exportState = this.exportState.bind(this);
+		this.updateHeight = this.updateHeight.bind(this);
 
 		if (typeof window.localStorage.getItem('state') === 'string') {
 			this.state = JSON.parse(window.localStorage.getItem('state'));
@@ -27,9 +28,24 @@ export default class App extends Component {
 		else {
 			this.state = defaultState;
 		}
+
+		this.state.heights = {};
 	}
 
 	render () {
+
+		const layout = Object.keys(this.state.widgets).map(id => {
+			const height = this.state.heights.hasOwnProperty(id) ? this.state.heights[id] : 100;
+			const widget = this.state.widgets[id];
+			return {
+				i: id,
+				x: widget.column,
+				y: widget.row,
+				w: 1,
+				h: height
+			}
+		});
+
 		return (
 			<>
 				<button onClick={this.resetState}>RESET</button>
@@ -50,14 +66,22 @@ export default class App extends Component {
 					className="layout"
 					breakpoints={{all: 0}}
 					cols={{all: this.state.cols}}
+					layouts={{all: layout}}
 					isResizable={false}
 					onLayoutChange={this.moveWidget}
+					rowHeight={1}
+					margin={[0,0]}
 				>
 					{Object.keys(this.state.widgets).map((id) => {
 						const widget = this.state.widgets[id];
 						return (
-							<div key={id} data-grid={{x: widget.column, y: widget.row, w: 1, h: 1}}>
-								<WidgetContainer id={id} widget={widget} onRemove={this.removeWidget} />
+							<div key={id} id={id}>
+								<WidgetContainer
+									updateHeight={this.updateHeight}
+									id={id}
+									widget={widget}
+									onRemove={this.removeWidget}
+								/>
 							</div>
 						);
 					})}
@@ -83,6 +107,14 @@ export default class App extends Component {
 				newWidgets[item.i].row = item.y;
 			});
 			return { widgets: newWidgets };
+		});
+	}
+
+	updateHeight(id, height) {
+		this.setState(state => {
+			const newHeights = Object.assign({}, state.heights);
+			newHeights[id] = Math.ceil(height) + 20; // plus padding
+			return { heights: newHeights };
 		});
 	}
 

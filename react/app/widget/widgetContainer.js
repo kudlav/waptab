@@ -8,10 +8,19 @@ import WidgetMissingErrorBoundary from './unsupportedWidget';
 
 export default class WidgetContainer extends Component {
 
+	constructor(props) {
+		super(props);
+
+		this.getHeight = this.getHeight.bind(this);
+
+		this.ref = React.createRef();
+		this.height = 0;
+	}
+
 	render() {
 		const Widget = React.lazy(() => import(`./${this.props.widget.type}/widget`));
 		return (
-			<div className={"widget"}>
+			<div ref={this.ref} className={"widget"}>
 				<div className={"header"}>
 					<div className={"title"}>{this.props.widget.title}</div>
 					<i className="material-icons" title={"Nastavení"}>settings</i>
@@ -20,12 +29,21 @@ export default class WidgetContainer extends Component {
 				<div className={"body"}>
 					<WidgetMissingErrorBoundary>
 						<Suspense fallback={<div>Načítám widget...</div>}>
-							<Widget data={this.props.widget.data} />
+							<Widget done={this.getHeight} data={this.props.widget.data} />
 						</Suspense>
 					</WidgetMissingErrorBoundary>
 				</div>
 			</div>
 		);
+	}
+
+	getHeight() {
+		const height = Math.ceil(this.ref.current.clientHeight);
+		const scroll = Math.ceil(this.ref.current.scrollHeight);
+		if (this.height === 0 || scroll !== height) {
+			this.height = scroll;
+			this.props.updateHeight(this.props.id, scroll);
+		}
 	}
 
 	shouldComponentUpdate(nextProps) {

@@ -7,7 +7,6 @@ export function getWeather(location) {
             var val = [];
             var Dates = filterDates();
             output.list.forEach(function (item, index) {
-                console.log(item);
                 if(Dates.includes(item.dt_txt) || index == 0)
                 {
                     val.push({

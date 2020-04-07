@@ -4,7 +4,6 @@ export function getWeather(location) {
     .then(
         function(output)
         {
-            console.log(output[0].Key);
             return fetch('http://dataservice.accuweather.com/forecasts/v1/daily/5day/'+output[0].Key+'?apikey=TdWaMfjPIuyD2Wt96UGtpJLZiAPDjc6w&language=cs-cz')
             .then(response => response.json())
             .then(

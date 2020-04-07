@@ -20,6 +20,7 @@ export default class RssWidget extends Component {
 		.then((responseData) => rssParser.parse(responseData))
 		.then((rss) => {
 		this.setState({channel: rss,ready:true});
+		this.props.done();
 		});
 	}
 

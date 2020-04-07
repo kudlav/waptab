@@ -31,14 +31,12 @@
     "node-sass": "^4.13.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-grid-layout": "github:kudlav/react-grid-layout",
+    "react-grid-layout": "^0.18.3",
     "reactjs-popup": "^1.5.0",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
     "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
-  },
-  "dependencies": {
+    "webpack-cli": "^3.3.11",
     "react-native-rss-parser": "^1.4.0",
     "react-xml-parser": "^1.1.6"
   }
