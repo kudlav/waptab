@@ -3,7 +3,7 @@
  * @author kudlav & anik97 (MIT License)
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import WidgetContainer from './widget/widgetContainer';
 import Settings from "./settings/settings";
@@ -11,6 +11,7 @@ import Search from './search/search';
 import defaultState from './defaultState'
 import enabledWidgets from './enabledWidgets';
 import AddWidget from './widget/addWidget';
+import SettingsContainer from './widget/settingsContainer';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -23,6 +24,8 @@ export default class App extends Component {
 		this.changeSettings = this.changeSettings.bind(this);
 		this.exportState = this.exportState.bind(this);
 		this.updateHeight = this.updateHeight.bind(this);
+		this.changeWidgetData = this.changeWidgetData.bind(this);
+		this.showWidgetSettings = this.showWidgetSettings.bind(this);
 
 		if (typeof window.localStorage.getItem('state') === 'string') {
 			this.state = JSON.parse(window.localStorage.getItem('state'));
@@ -54,6 +57,16 @@ export default class App extends Component {
 					/>
 				</div>
 
+				{this.state.widgetSettings &&
+					<SettingsContainer
+						id={this.state.widgetSettings}
+						widget={this.state.widgets[this.state.widgetSettings].type}
+						data={this.state.widgets[this.state.widgetSettings].data}
+						showWidgetSettings={this.showWidgetSettings}
+						onSave={this.changeWidgetData}
+					/>
+				}
+
 				<ResponsiveGridLayout
 					className="layout"
 					breakpoints={{all: 0}}
@@ -73,6 +86,7 @@ export default class App extends Component {
 									id={id}
 									widget={widget}
 									onRemove={this.removeWidget}
+									showWidgetSettings={this.showWidgetSettings}
 								/>
 							</div>
 						);
@@ -151,6 +165,22 @@ export default class App extends Component {
 	 */
 	changeSettings(values) {
 		this.setState(values);
+	}
+
+	showWidgetSettings(widgetSettings) {
+		this.setState({ widgetSettings: widgetSettings });
+	}
+
+	changeWidgetData(id, data, title) {
+		this.setState(state => {
+			const newWidgets = Object.assign({}, state.widgets);
+			newWidgets[id].data = data;
+			newWidgets[id].title = title;
+			return {
+				widgetSettings: null,
+				widgets: newWidgets
+			};
+		});
 	}
 
 	exportState() {

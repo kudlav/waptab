@@ -34,9 +34,6 @@ function filterDates(){
     output.push(createDate(tomorrow));
     output.push(createDate(after_2));
     output.push(createDate(after_3));
-    console.log(createDate(tomorrow));
-    console.log(createDate(after_2));
-    console.log(createDate(after_3));
     return output;
 }
 

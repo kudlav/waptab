@@ -34,7 +34,7 @@ export default class Settings extends Component {
 							<div className={"title"}>Nastavení</div><i className="material-icons" title={"Zavřít"} onClick={close}>close</i>
 						</div>
 						<div className={"body"}>
-							<form onSubmit={(event) => this.handleSubmitSettings(event, close)}>
+							<form onSubmit={event => this.handleSubmitSettings(event, close)}>
 								<label htmlFor={"search"}>Počet sloupců</label>
 								<input
 									type={"number"}
@@ -124,6 +124,9 @@ export default class Settings extends Component {
 		if (typeof error === 'string') {
 			return alert(`Neplatný formát souboru!\n\n${error}`);
 		}
+
+		delete settings.heights;
+		delete settings.widgetSettings;
 
 		alert('Import proběhl úspěsně.');
 		this.props.changeSettings(settings);

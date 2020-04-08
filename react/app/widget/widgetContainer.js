@@ -12,6 +12,7 @@ export default class WidgetContainer extends Component {
 		super(props);
 
 		this.getHeight = this.getHeight.bind(this);
+		this.openSettings = this.openSettings.bind(this);
 
 		this.ref = React.createRef();
 		this.height = 0;
@@ -23,7 +24,7 @@ export default class WidgetContainer extends Component {
 			<div ref={this.ref} className={"widget"}>
 				<div className={"header"}>
 					<div className={"title"}>{this.props.widget.title}</div>
-					<i className="material-icons" title={"Nastavení"}>settings</i>
+					<i className="material-icons" title={"Nastavení"} onClick={this.openSettings}>settings</i>
 					<i className="material-icons" title={"Odebrat"} onClick={() => this.props.onRemove(this.props.id)}>close</i>
 				</div>
 				<div className={"body"}>
@@ -37,6 +38,10 @@ export default class WidgetContainer extends Component {
 		);
 	}
 
+	openSettings() {
+		this.props.showWidgetSettings(this.props.id);
+	}
+
 	getHeight() {
 		const height = Math.ceil(this.ref.current.clientHeight);
 		const scroll = Math.ceil(this.ref.current.scrollHeight);
@@ -46,10 +51,4 @@ export default class WidgetContainer extends Component {
 		}
 	}
 
-	shouldComponentUpdate(nextProps) {
-		return (this.props.widget.title !== nextProps.widget.title ||
-			this.props.widget.data !== nextProps.widget.data ||
-			this.props.widget.type !== nextProps.widget.type
-		);
-	}
 }

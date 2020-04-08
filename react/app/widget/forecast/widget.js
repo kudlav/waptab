@@ -23,15 +23,11 @@ export default class ForecastWidget extends Component {
 	}
 
 	componentDidMount() {
-		 import("./dataSource/accuweather").then(source => {
-			source.getWeather('London').then(items => this.setState({items, ready: true}));
+		 import(`./dataSource/${this.props.data.source}`).then(source => {
+			source.getWeather(this.props.data.city).then(items => this.setState({items, ready: true}));
 		 });
 
 		 this.props.done();
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		if (prevState.ready !== this.state.ready) this.props.done();
 	}
 
 	render() {

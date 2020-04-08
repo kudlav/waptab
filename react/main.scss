@@ -58,6 +58,11 @@ body {
 
   .widget {
     margin: 10px;
+
+    .popup-overlay {
+      position: absolute!important;
+      bottom: auto!important;
+    }
   }
 
   .widget, .popup {

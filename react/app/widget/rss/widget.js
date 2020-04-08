@@ -14,8 +14,7 @@ export default class RssWidget extends Component {
 	  }
 
 	componentDidMount() {
-		const RSS_URL = 'http://www.nasa.gov/rss/dyn/breaking_news.rss';
-		return fetch('https://cors-anywhere.herokuapp.com/'+RSS_URL)
+		return fetch(`https://cors-anywhere.herokuapp.com/${this.props.data.source}`)
 		.then((response) => response.text())
 		.then((responseData) => rssParser.parse(responseData))
 		.then((rss) => {
@@ -27,14 +26,13 @@ export default class RssWidget extends Component {
 	render() {
 		if(this.state.ready)
 		{
-				const items = this.state.channel.items.map((item, key) =>
-					<div className={"itemContainer"}>
-						<div className={"itemTitle"}>{item.title}</div>
-						<div className={"itemDesc"}>{item.description}</div>
-					</div>
-				);
+			const items = this.state.channel.items.map((item, key) =>
+				<div className={"itemContainer"}>
+					<div className={"itemTitle"}>{item.title}</div>
+					<div className={"itemDesc"}>{item.description}</div>
+				</div>
+			);
 
-			console.log(this.state.channel.items);
 			return (
 				<div className={"rssWidget"}>
 				{items}

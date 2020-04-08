@@ -18,22 +18,22 @@ export default {
 			type: 'rss',
 			column: 0,
 			row: 0,
-			title: 'RSS - odkaz.na.zdroj.dat',
-			data: {}
+			title: 'RSS - FIT VUT',
+			data: { source: 'https://www.fit.vutbr.cz/news/news-rss.php' }
 		},
 		'rss1': {
 			type: 'rss',
 			column: 0,
 			row: 1,
-			title: 'RSS - www.paralelnilisty.cz',
-			data: {}
+			title: 'RSS - nasa.gov',
+			data: { source: 'http://www.nasa.gov/rss/dyn/breaking_news.rss' }
 		},
 		'forecast0': {
 			type: 'forecast',
 			column: 0,
 			row: 2,
 			title: 'Počasí - Brno',
-			data: {}
+			data: { city: 'Brno', source: 'accuweather' }
 		},
 		'fzz0': {
 			type: 'fzz',
