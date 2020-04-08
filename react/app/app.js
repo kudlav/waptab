@@ -181,7 +181,7 @@ export default class App extends Component {
 				widgets: newWidgets
 			};
 		});
-		window.location.reload(false);
+		location.reload();
 	}
 
 	exportState() {

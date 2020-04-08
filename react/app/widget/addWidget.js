@@ -19,17 +19,16 @@ export default class AddWidget extends Component {
 	render() {
 		return (
 			<div className={"add-widget"}>
-				{!this.state.open &&
+				{!this.state.open ?
 					<i className="material-icons" title={"Přidat widget"} onClick={this.onOpen}>add</i>
-				}
-				{this.state.open &&
+				: // else
 					<div className={"widget"}>
 						<div>
 							<i className="material-icons" title={"Zavřít"} onClick={this.onClose}>close</i>
 							<span className={"title"}>Přidat widget</span>
 						</div>
 						{Object.keys(this.props.widgets).map(id =>
-							<div className={"button"}>{this.props.widgets[id]}</div>
+							<div key={id} className={"button"}>{this.props.widgets[id]}</div>
 						)}
 					</div>
 				}
