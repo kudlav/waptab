@@ -9,7 +9,7 @@ import './widget.scss'
 export default class ForecastWidget extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {items: [],ready: false,number: 1};
+		this.state = {items: [],ready: false};
 	  }
 
 	getFutureDate(numberOfDays){
