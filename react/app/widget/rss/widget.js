@@ -26,18 +26,16 @@ export default class RssWidget extends Component {
 	render() {
 		if(this.state.ready)
 		{
-			const items = this.state.channel.items.map((item, key) =>
-				<div className={"itemContainer"}>
-					<div className={"itemTitle"}>{item.title}</div>
-					<div className={"itemDesc"}>{item.description}</div>
-				</div>
-			);
-
 			return (
 				<div className={"rssWidget"}>
-				{items}
+					{this.state.channel.items.map((item, key) =>
+						<div key={key} className={"itemContainer"}>
+							<div className={"itemTitle"} dangerouslySetInnerHTML={{__html: item.title}} />
+							<div className={"itemDesc"} dangerouslySetInnerHTML={{__html: item.description}} />
+						</div>
+					)}
 				</div>
-				);
+			);
 		}
 		else
 		{
