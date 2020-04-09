@@ -5,5 +5,5 @@
 
 export default {
 	rss: 'RSS',
-	weather: 'Počasí'
+	forecast: 'Počasí'
 };

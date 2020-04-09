@@ -19,6 +19,7 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 
+		this.addWidget = this.addWidget.bind(this);
 		this.removeWidget = this.removeWidget.bind(this);
 		this.moveWidget = this.moveWidget.bind(this);
 		this.changeSettings = this.changeSettings.bind(this);
@@ -94,7 +95,7 @@ export default class App extends Component {
 
 					{[...Array(this.state.cols)].map((_, col) =>
 						<div key={`_add${col}`} id={`_add${col}`}>
-							<AddWidget column={col} widgets={enabledWidgets} />
+							<AddWidget addWidget={this.addWidget} column={col} widgets={enabledWidgets} />
 						</div>
 					)}
 
@@ -154,6 +155,56 @@ export default class App extends Component {
 		});
 	}
 
+	addWidget(column,widgetType,widgetText){
+		this.setState(state => {
+		const newWidgets = Object.assign({}, this.state.widgets);
+		const newId = this.createKey(widgetType);
+		newWidgets[newId] = 
+		{
+			type: widgetType,
+			column: column,
+			row: this.getMaxRow(column),
+			title: widgetText+" -",
+			data:{}
+		};
+
+		return { widgets: newWidgets, widgetSettings: newId };
+		});
+	}
+
+	createKey(widgetType){
+		var index=0
+		var key;
+		const newWidgets = Object.assign({}, this.state.widgets);
+		const keys = Object.keys(newWidgets);
+
+		while(true)
+		{
+			key = widgetType+index;
+
+			if(keys.includes(key))
+			{
+				index++;
+			}
+			else
+			{
+				return key;
+			}
+		}
+		fruits.includes("Mango");
+	}
+
+	getMaxRow(column){
+		let maxRow=0;
+		const newWidgets = Object.assign({}, this.state.widgets);
+		Object.values(newWidgets).forEach(widget => {
+			if (widget.column === column && widget.row > maxRow) {
+				maxRow = widget.row + 1;
+			}
+		});
+		return maxRow;
+	}
+
 	resetState() {
 		window.localStorage.clear();
 		location.reload();
@@ -172,15 +223,18 @@ export default class App extends Component {
 	}
 
 	changeWidgetData(id, data, title) {
+		let widget;
 		this.setState(state => {
 			const newWidgets = Object.assign({}, state.widgets);
 			newWidgets[id].data = data;
 			newWidgets[id].title = title;
+			widget = newWidgets[id];
 			return {
 				widgetSettings: null,
 				widgets: newWidgets
 			};
 		});
+
 		location.reload();
 	}
 

@@ -28,12 +28,18 @@ export default class AddWidget extends Component {
 							<span className={"title"}>Přidat widget</span>
 						</div>
 						{Object.keys(this.props.widgets).map(id =>
-							<div key={id} className={"button"}>{this.props.widgets[id]}</div>
+							<div key={id} className={"button"} onClick={() => this.handleAdd(id,this.props.widgets[id])}>{this.props.widgets[id]}</div>
 						)}
 					</div>
 				}
 			</div>
 		);
+	}
+
+	handleAdd(id,text)
+	{
+		this.props.addWidget(this.props.column,id,text);
+		this.setState({open: false});
 	}
 
 	onOpen() {
