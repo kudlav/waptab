@@ -39,9 +39,6 @@ export default class App extends Component {
 	}
 
 	render () {
-
-		const layout = this.getLayout();
-
 		return (
 			<>
 				<button onClick={this.resetState}>RESET</button>
@@ -72,7 +69,7 @@ export default class App extends Component {
 					className="layout"
 					breakpoints={{all: 0}}
 					cols={{all: this.state.cols}}
-					layouts={{all: layout}}
+					layouts={{all: this.getLayout()}}
 					isResizable={false}
 					onLayoutChange={this.moveWidget}
 					rowHeight={1}
@@ -116,12 +113,9 @@ export default class App extends Component {
 	moveWidget(layout) {
 		const newWidgets = Object.assign({}, this.state.widgets);
 		Object.values(layout).forEach(item => {
-			if (item.i !== `_add${item.x}`) {
+			if (!/^_add/.test(item.i)) {
 				newWidgets[item.i].column = item.x;
 				newWidgets[item.i].row = item.y;
-			}
-			else {
-				item.y = Infinity;
 			}
 		});
 		this.setState({ widgets: newWidgets });
@@ -157,41 +151,32 @@ export default class App extends Component {
 
 	addWidget(column,widgetType,widgetText){
 		this.setState(state => {
-		const newWidgets = Object.assign({}, this.state.widgets);
-		const newId = this.createKey(widgetType);
-		newWidgets[newId] = 
-		{
-			type: widgetType,
-			column: column,
-			row: this.getMaxRow(column),
-			title: widgetText+" -",
-			data:{}
-		};
+			const newWidgets = Object.assign({}, state.widgets);
+			const newId = this.createKey(widgetType);
+			newWidgets[newId] =
+			{
+				type: widgetType,
+				column: column,
+				row: this.getMaxRow(column),
+				title: widgetText+" -",
+				data:{}
+			};
 
-		return { widgets: newWidgets, widgetSettings: newId };
+			return { widgets: newWidgets, widgetSettings: newId };
 		});
 	}
 
 	createKey(widgetType){
-		var index=0
-		var key;
+		let index = 0;
+		let key = widgetType + index;
 		const newWidgets = Object.assign({}, this.state.widgets);
-		const keys = Object.keys(newWidgets);
 
-		while(true)
-		{
-			key = widgetType+index;
-
-			if(keys.includes(key))
-			{
-				index++;
-			}
-			else
-			{
-				return key;
-			}
+		while(newWidgets.hasOwnProperty(key)) {
+			index++;
+			key = widgetType + index;
 		}
-		fruits.includes("Mango");
+
+		return key;
 	}
 
 	getMaxRow(column){
@@ -215,7 +200,11 @@ export default class App extends Component {
 	 * @param values Object
 	 */
 	changeSettings(values) {
+		const prevState = this.state;
 		this.setState(values);
+		if (typeof values.cols === 'number' && prevState.cols < values.cols) {
+			location.reload();
+		}
 	}
 
 	showWidgetSettings(widgetSettings) {
