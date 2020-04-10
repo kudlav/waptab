@@ -66,6 +66,7 @@ export default class Settings extends Component {
 							<button onClick={this.props.exportState}>Export nastavení</button>
 							<label htmlFor={"import"} className={"button"}>Import nastavení</label>
 							<input type={"file"} onChange={this.handleImport} id={"import"} />
+							<button onClick={this.resetSettings}>Obnovit výchozí</button>
 						</div>
 					</div>
 				)}
@@ -130,5 +131,10 @@ export default class Settings extends Component {
 
 		alert('Import proběhl úspěsně.');
 		this.props.changeSettings(settings);
+	}
+
+	resetSettings() {
+		window.localStorage.clear();
+		location.reload();
 	}
 }

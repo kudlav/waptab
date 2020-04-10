@@ -34,13 +34,6 @@ export default {
 			row: 2,
 			title: 'Počasí - Brno',
 			data: { city: 'Brno', source: 'accuweather' }
-		},
-		'fzz0': {
-			type: 'fzz',
-			column: 0,
-			row: 3,
-			title: 'Horoskop - Lev',
-			data: {}
 		}
 	}
 };

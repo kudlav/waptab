@@ -41,7 +41,6 @@ export default class App extends Component {
 	render () {
 		return (
 			<>
-				<button onClick={this.resetState}>RESET</button>
 				<div className={"head"}>
 					<div />
 					<Search engines={this.state.engines} engine={this.state.engine} />
@@ -188,11 +187,6 @@ export default class App extends Component {
 			}
 		});
 		return maxRow;
-	}
-
-	resetState() {
-		window.localStorage.clear();
-		location.reload();
 	}
 
 	/**
