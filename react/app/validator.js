@@ -18,6 +18,15 @@ export default function(json) {
 			return 'engines: položky ve formátu { string: string }';
 	});
 
+	if (typeof json.enabledWidgets !== 'object' || Object.entries(json.enabledWidgets).length === 0) {
+		return 'enabledWidgets: chybí dostupné widgety';
+	}
+
+	Object.keys(json.enabledWidgets).forEach(widget => {
+		if (typeof widget !== 'string' || typeof json.engines[widget] !== 'string')
+			return 'enabledWidgets: položky ve formátu { string: string }';
+	});
+
 	if (typeof json.engine !== 'string' || typeof json.engines[json.engine] !== 'string')
 		return 'engine: musí být jeden z engines';
 

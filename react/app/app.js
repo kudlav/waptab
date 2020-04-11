@@ -9,7 +9,6 @@ import WidgetContainer from './widget/widgetContainer';
 import Settings from "./settings/settings";
 import Search from './search/search';
 import defaultState from './defaultState'
-import enabledWidgets from './enabledWidgets';
 import AddWidget from './widget/addWidget';
 import SettingsContainer from './widget/settingsContainer';
 
@@ -91,7 +90,7 @@ export default class App extends Component {
 
 					{[...Array(this.state.cols)].map((_, col) =>
 						<div key={`_add${col}`} id={`_add${col}`}>
-							<AddWidget addWidget={this.addWidget} column={col} widgets={enabledWidgets} />
+							<AddWidget addWidget={this.addWidget} column={col} widgets={this.state.enabledWidgets} />
 						</div>
 					)}
 

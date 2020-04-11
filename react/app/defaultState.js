@@ -11,6 +11,10 @@ export default {
 		'Seznam': 'https://search.seznam.cz/?q=',
 		'Mapy.cz': 'https://mapy.cz/?q='
 	},
+	enabledWidgets: {
+		rss: 'RSS',
+		forecast: 'Počasí'
+	},
 	engine: 'DuckDuckGo',
 	bgColor: '#b5a584',
 	widgets: {
