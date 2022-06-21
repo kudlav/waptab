@@ -1,10 +1,10 @@
 export function getWeather(location) {
-    return fetch('http://dataservice.accuweather.com/locations/v1/cities/search?apikey=TdWaMfjPIuyD2Wt96UGtpJLZiAPDjc6w&q='+location)  
+    return fetch('https://dataservice.accuweather.com/locations/v1/cities/search?apikey=TdWaMfjPIuyD2Wt96UGtpJLZiAPDjc6w&q='+location)  
     .then(response => response.json())
     .then(
         function(output)
         {
-            return fetch('http://dataservice.accuweather.com/forecasts/v1/daily/5day/'+output[0].Key+'?apikey=TdWaMfjPIuyD2Wt96UGtpJLZiAPDjc6w&language=cs-cz')
+            return fetch('https://dataservice.accuweather.com/forecasts/v1/daily/5day/'+output[0].Key+'?apikey=TdWaMfjPIuyD2Wt96UGtpJLZiAPDjc6w&language=cs-cz')
             .then(response => response.json())
             .then(
                 function(output)

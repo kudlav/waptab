@@ -23,14 +23,14 @@ export default {
 			column: 0,
 			row: 0,
 			title: 'RSS - KAM VUT',
-			data: { source: 'http://www.kam.vutbr.cz/rss.aspx', title: 'KAM VUT' }
+			data: { source: 'https://www.kam.vutbr.cz/rss.aspx', title: 'KAM VUT' }
 		},
 		'rss1': {
 			type: 'rss',
 			column: 0,
 			row: 1,
 			title: 'RSS - nasa.gov',
-			data: { source: 'http://www.nasa.gov/rss/dyn/breaking_news.rss', title: 'nasa.gov' }
+			data: { source: 'https://www.nasa.gov/rss/dyn/breaking_news.rss', title: 'nasa.gov' }
 		},
 		'forecast0': {
 			type: 'forecast',

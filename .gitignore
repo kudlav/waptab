@@ -4,3 +4,4 @@ www/*.js
 package-lock.json
 .idea/
 waptab.iml
+www/main.js.LICENSE.txt

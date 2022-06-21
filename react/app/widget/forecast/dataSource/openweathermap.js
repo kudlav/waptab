@@ -1,5 +1,5 @@
 export function getWeather(location) {
-    return fetch('https://api.openweathermap.org/data/2.5/forecast?q='+location+'&units=metric&apikey=4fd4cec874c7634f89c637cec5262f4c&lang=cz')  
+    return fetch('https://api.openweathermap.org/data/2.5/forecast?q='+location+'&units=metric&apikey=4fd4cec874c7634f89c637cec5262f4c&lang=cz')
     .then(response => response.json())
     .then(
         function(output)
@@ -10,12 +10,12 @@ export function getWeather(location) {
                 if(Dates.includes(item.dt_txt) || index == 0)
                 {
                     val.push({
-                        temp: Math.floor(item.main.temp), 
-                        weather: item.weather[0].description, 
-                        icon: 'http://openweathermap.org/img/wn/'+item.weather[0].icon+'@2x.png'});
+                        temp: Math.floor(item.main.temp),
+                        weather: item.weather[0].description,
+                        icon: 'https://openweathermap.org/img/wn/'+item.weather[0].icon+'@2x.png'});
                 }
               });
-            
+
             return val;
         }
         )

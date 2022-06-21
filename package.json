@@ -8,7 +8,7 @@
     "url": "https://github.com/kudlav/waptab"
   },
   "scripts": {
-    "dev-build": "./node_modules/.bin/webpack -wd",
+    "dev-build": "./node_modules/.bin/webpack -w --mode development",
     "build": "./node_modules/.bin/webpack --mode production"
   },
   "keywords": [
@@ -21,22 +21,22 @@
   "author": "kudlav & anik97",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^3.5.1",
-    "file-loader": "^6.0.0",
-    "material-design-icons-iconfont": "^5.0.1",
-    "node-sass": "^4.13.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-grid-layout": "^0.18.3",
-    "react-native-rss-parser": "^1.4.0",
-    "reactjs-popup": "^1.5.0",
-    "sass-loader": "^8.0.2",
-    "style-loader": "^1.1.3",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "material-design-icons-iconfont": "^6.7.0",
+    "node-sass": "^7.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-grid-layout": "^1.3.4",
+    "react-native-rss-parser": "^1.5.1",
+    "reactjs-popup": "^2.0.5",
+    "sass-loader": "^13.0.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
   }
 }

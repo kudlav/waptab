@@ -1,7 +1,7 @@
 # Personal homepage
 
 ## Installation
-Project requires [npm](https://github.com/npm/cli/). Tested with npm@6.13.
+Project requires [npm](https://github.com/npm/cli/). Tested with Node.js 16.15.1 LTS and npm 8.11.
 
 ### Development
 

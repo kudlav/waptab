@@ -14,7 +14,7 @@ export default class RssWidget extends Component {
 	  }
 
 	componentDidMount() {
-		return fetch(`https://cors-anywhere.herokuapp.com/${this.props.data.source}`)
+		return fetch('https://corsproxy.io/?' + encodeURIComponent(this.props.data.source))
 		.then((response) => response.text())
 		.then((responseData) => rssParser.parse(responseData))
 		.then((rss) => {
