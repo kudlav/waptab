@@ -1,5 +1,7 @@
 # Personal homepage
 
+**This project is no longer maintained, use [Tabliss](https://github.com/joelshepherd/tabliss) instead.**
+
 ## Installation
 Project requires [npm](https://github.com/npm/cli/). Tested with Node.js 16.15.1 LTS and npm 8.11.
 
